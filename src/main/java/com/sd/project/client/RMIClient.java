@@ -24,16 +24,16 @@ public class RMIClient {
             do {
                 reservationService.checkAndFinalizeReservations();
 
-                System.out.println("\n======== LIBRARY RMI ========");
+                System.out.println("\n========= LIBRARY RMI =========");
                 System.out.println("1. Registrar usuário");
                 System.out.println("2. Ver usuários registrados");
                 System.out.println("3. Buscar usuário pelo ID");
-                System.out.println("5. Adicionar livro");
-                System.out.println("6. Visualizar livro pelo ISBN");
-                System.out.println("7. Visualizar todos os livros");
-                System.out.println("8. Realizar reserva");
-                System.out.println("9. Visualizar reserva pelo ID");
-                System.out.println("10. Visualizar todas as reservas");
+                System.out.println("4. Adicionar livro");
+                System.out.println("5. Visualizar livro pelo ISBN");
+                System.out.println("6. Visualizar todos os livros");
+                System.out.println("7. Realizar reserva");
+                System.out.println("8. Visualizar reserva pelo ID");
+                System.out.println("9. Visualizar todas as reservas");
                 System.out.println("0. Sair");
                 System.out.println("================================");
                 System.out.print("Escolha uma opção: ");
@@ -63,7 +63,7 @@ public class RMIClient {
                         }
                         System.out.println("Usuário encontrado: " + foundUser);
                         break;
-                    case 5:
+                    case 4:
                         System.out.print("Digite o título do livro: ");
                         String bookTitle = scanner.nextLine();
                         System.out.print("Digite o autor do livro: ");
@@ -74,7 +74,7 @@ public class RMIClient {
                         bookService.addBook(book);
                         System.out.println("Livro adicionado com sucesso!");
                         break;
-                    case 6:
+                    case 5:
                         System.out.print("Digite o ISBN do livro: ");
                         String isbn = scanner.nextLine();
                         Book foundBook = bookService.getBook(isbn);
@@ -84,10 +84,10 @@ public class RMIClient {
                         }
                         System.out.println("Livro encontrado: " + foundBook);
                         break;
-                    case 7:
+                    case 6:
                         System.out.println("Todos os livros: " + bookService.getAllBooks());
                         break;
-                    case 8:
+                    case 7:
                         System.out.print("Digite o ISBN do livro para reserva: ");
                         String reserveIsbn = scanner.nextLine();
                         System.out.print("Digite o ID do usuário para reserva: ");
@@ -103,7 +103,7 @@ public class RMIClient {
                             System.out.println("Reserva realizada com sucesso!");
                         }
                         break;
-                    case 9:
+                    case 8:
                         System.out.print("Digite o ID da reserva: ");
                         int reservationId = scanner.nextInt();
                         Reservation foundReservation = reservationService.getReservation(reservationId);
@@ -113,7 +113,7 @@ public class RMIClient {
                         }
                         System.out.println("Reserva encontrada: " + foundReservation);
                         break;
-                    case 10:
+                    case 9:
                         System.out.println("Todas as reservas: " + reservationService.getAllReservations());
                         break;
                     case 0:
