@@ -55,6 +55,6 @@ public class Reservation implements Serializable {
 
     @Override
     public String toString() {
-        return "Reserva " + id + ":" + "Livro " + bookIsbn +  "(" + "Usuario " + userId + ")" + " - " + StatusReservation;
+        return "Reserva " + id + ":" + "Livro " + bookIsbn +  "(" + "Usuario " + userId + ")" + " - " + (StatusReservation ? "Ativa" : "Finalizada");
     }
 }

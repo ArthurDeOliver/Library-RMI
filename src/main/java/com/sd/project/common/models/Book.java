@@ -36,6 +36,6 @@ public class Book implements Serializable {
 
     @Override
     public String toString() {
-        return title + " (" + author + ")" + " - " + StatusBook;
+        return title + " (" + author + ")" + " - " + (StatusBook ? "Emprestado" : "Disponível");
     }
 }

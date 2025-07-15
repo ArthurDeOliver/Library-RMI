@@ -1,6 +1,8 @@
 package com.sd.project.server;
 
+import com.sd.project.common.models.Book;
 import com.sd.project.common.models.Reservation;
+import com.sd.project.common.services.BookService;
 import com.sd.project.common.services.ReservationService;
 
 import java.rmi.RemoteException;
@@ -13,16 +15,25 @@ import java.time.LocalDate;
 public class ReservationImplementation extends UnicastRemoteObject implements ReservationService {
 
     private final HashMap<Integer, Reservation> reservations = new HashMap<>();
+    private final BookService bookService;
     private int nextId = 1;
 
-    public ReservationImplementation() throws RemoteException {
+    public ReservationImplementation(BookService bookService) throws RemoteException {
         super();
+        this.bookService = bookService;
+
     }
 
     @Override
     public void addReservation(Reservation reservation) throws RemoteException {
         reservation.setId(nextId++);
         reservations.put(reservation.getId(), reservation);
+
+        Book book = bookService.getBook(reservation.getBookIsbn());
+        if (book != null) {
+            book.setStatusBook(true);
+            bookService.updateStatusBook(book);
+        }
     }
 
     @Override

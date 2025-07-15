@@ -29,8 +29,7 @@ public class BookImplementation extends UnicastRemoteObject implements BookServi
     public void updateStatusBook(Book book) throws RemoteException {
         Book existingBook = books.get(book.getIsbn());
         if (existingBook != null) {
-            Boolean currentStatus = existingBook.getStatusBook();
-            existingBook.setStatusBook(!currentStatus); 
+            existingBook.setStatusBook(book.getStatusBook());
         }
     }
 
