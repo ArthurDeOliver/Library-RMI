@@ -1,4 +1,4 @@
-package com.sd.project.common;
+package com.sd.project.common.models;
 
 import java.io.Serializable;
 
