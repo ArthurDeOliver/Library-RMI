@@ -1,22 +1,23 @@
 package com.sd.project.common.models;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class Reservation implements Serializable {
     private int id;
-    private String reservationDate;
+    private LocalDate reservationDate;
     private String userId;
     private String bookIsbn;
-    private String finalReservationDate;
+    private LocalDate finalReservationDate;
     private Bool StatusReservation;
 
-    public Reservation(int id, String userId, String bookIsbn, String reservationDate) {
+    public Reservation(int id, String userId, String bookIsbn) {
         this.id = id;
         this.userId = userId;
         this.bookIsbn = bookIsbn;
-        this.reservationDate = reservationDate;
-        this.StatusReservation = false; // Default status is false (not reserved)
-        this.finalReservationDate = null; // Default final reservation date is null
+        this.reservationDate = LocalDate.now();
+        this.StatusReservation = true; 
+        this.finalReservationDate = this.reservationDate.plusDays(7); 
         
     }
 
