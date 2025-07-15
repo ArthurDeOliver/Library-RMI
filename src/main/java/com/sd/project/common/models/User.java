@@ -3,18 +3,22 @@ package com.sd.project.common.models;
 import java.io.Serializable;
 
 public class User implements Serializable {
-    private String userId;
+    private int userId;
     private String name;
     private String email;
 
-    public User(String userId, String name, String email) {
-        this.userId = userId;
+    public User(String name, String email) {
+        this.userId = 0;
         this.name = name;
         this.email = email;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -27,10 +31,6 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
-                "userId='" + userId + '\'' +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+        return "Nome: " + name + " | " + email;
     }
 }

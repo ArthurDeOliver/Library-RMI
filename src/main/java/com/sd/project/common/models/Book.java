@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 public class Book implements Serializable {
     private String title;
-    private Bool StatusBook;
+    private Boolean StatusBook;
     private String author;
     private String isbn;
 
-    public Book(String title, String author, String isbn, Bool StatusBook) {
+    public Book(String title, String author, String isbn) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
@@ -18,11 +18,11 @@ public class Book implements Serializable {
     public String getTitle() {
         return title;
     }
-    public void setStatusBook(Bool statusBook) {
+    public void setStatusBook(Boolean statusBook) {
         this.StatusBook = statusBook;
     }
     
-    public Bool getStatusBook() {
+    public Boolean getStatusBook() {
         return StatusBook;
     }
 
@@ -36,6 +36,6 @@ public class Book implements Serializable {
 
     @Override
     public String toString() {
-        return title + " (" + author + ")";
+        return title + " (" + author + ")" + " - " + StatusBook;
     }
 }

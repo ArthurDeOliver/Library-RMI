@@ -2,17 +2,18 @@ package com.sd.project.common.models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
 
 public class Reservation implements Serializable {
     private int id;
     private LocalDate reservationDate;
-    private String userId;
+    private int userId;
     private String bookIsbn;
     private LocalDate finalReservationDate;
-    private Bool StatusReservation;
+    private Boolean StatusReservation;
 
-    public Reservation(int id, String userId, String bookIsbn) {
-        this.id = id;
+    public Reservation(int userId, String bookIsbn) {
+        this.id = 0;
         this.userId = userId;
         this.bookIsbn = bookIsbn;
         this.reservationDate = LocalDate.now();
@@ -21,23 +22,26 @@ public class Reservation implements Serializable {
         
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
     public int getId() {
         return id;
     }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public Bool getStatusReservation() {
+    public Boolean getStatusReservation() {
         return StatusReservation;
     }
 
-    public void setStatusReservation(Bool statusReservation) {
+    public void setStatusReservation(Boolean statusReservation) {
         this.StatusReservation = statusReservation;
     }
 
-    public String getFinalReservationDate() {
+    public ChronoLocalDate getFinalReservationDate() {
         return finalReservationDate;
     }
 
@@ -45,17 +49,12 @@ public class Reservation implements Serializable {
         return bookIsbn;
     }
 
-    public String getReservationDate() {
+    public LocalDate getReservationDate() {
         return reservationDate;
     }
 
     @Override
     public String toString() {
-        return "Reservation{" +
-                "id=" + id +
-                "userId='" + userId + '\'' +
-                ", bookIsbn='" + bookIsbn + '\'' +
-                ", reservationDate='" + reservationDate + '\'' +
-                '}';
+        return "Reserva " + id + ":" + "Livro " + bookIsbn +  "(" + "Usuario " + userId + ")" + " - " + StatusReservation;
     }
 }

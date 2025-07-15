@@ -1,4 +1,4 @@
-package com.sd.project.common.server;
+package com.sd.project.server;
 
 import com.sd.project.common.models.User;
 
@@ -20,8 +20,8 @@ public class UserImplementation extends UnicastRemoteObject implements UserServi
 
     @Override
     public void addUser(User user) throws RemoteException {
-        user.setId(nextId++);
-        users.put(user.getId(), user);
+        user.setUserId(nextId++);
+        users.put(user.getUserId(), user);
     }
 
     @Override

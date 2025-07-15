@@ -1,12 +1,14 @@
-package com.sd.project.common.server;
+package com.sd.project.server;
 
 import com.sd.project.common.models.Reservation;
+import com.sd.project.common.services.ReservationService;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.time.LocalDate;
 
 public class ReservationImplementation extends UnicastRemoteObject implements ReservationService {
 
@@ -34,19 +36,43 @@ public class ReservationImplementation extends UnicastRemoteObject implements Re
     }
 
     @Override
-    public Void getStatusReservation(int id) throws RemoteException {
+    public Boolean getStatusReservation(int id) throws RemoteException {
         Reservation reservation = reservations.get(id);
+        Boolean status = true;
         if (reservation != null) {
-            System.out.println("Status: " + reservation.getStatus());
+            status = reservation.getStatusReservation();
         }
-        return null;
+        return status;
     }
 
     @Override
     public void updateStatusReservation(Reservation reservation) throws RemoteException {
         Reservation existing = reservations.get(reservation.getId());
         if (existing != null) {
-            existing.setStatus(reservation.getStatus());
+            Boolean currentStatus = existing.getStatusReservation();
+            existing.setStatusReservation(!currentStatus);
         }
     }
+
+    @Override
+    public boolean isBookReserved(String isbn) throws RemoteException {
+        LocalDate today = LocalDate.now();
+        for (Reservation r : reservations.values()) {
+            if (r.getBookIsbn().equals(isbn) && r.getStatusReservation() && today.isBefore(r.getFinalReservationDate())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+        public void checkAndFinalizeReservations() throws RemoteException {
+            LocalDate today = LocalDate.now();
+            for (Reservation r : reservations.values()) {
+                if (r.getStatusReservation() && today.isAfter(r.getFinalReservationDate())) {
+                    r.setStatusReservation(false);
+                    System.out.println("Reserva " + r.getId() + " finalizada automaticamente.");
+                }
+            }
+        }
 }

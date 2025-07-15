@@ -1,13 +1,13 @@
-package com.sd.project.common.server;
+package com.sd.project.server;
 
 import com.sd.project.common.models.Book;
+import com.sd.project.common.services.BookService;
 
-import java.rmi.Naming;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class BookImplementation extends UnicastRemoteObject implements BookService {
     private HashMap<String, Book> books;
@@ -27,10 +27,10 @@ public class BookImplementation extends UnicastRemoteObject implements BookServi
     }
 
     public void updateStatusBook(Book book) throws RemoteException {
-        if(book.getStatusBook){
-            book.setStatusBook(false);
-        } else {
-            book.setStatusBook(true);
+        Book existingBook = books.get(book.getIsbn());
+        if (existingBook != null) {
+            Boolean currentStatus = existingBook.getStatusBook();
+            existingBook.setStatusBook(!currentStatus); 
         }
     }
 
@@ -40,12 +40,15 @@ public class BookImplementation extends UnicastRemoteObject implements BookServi
     }
 
     @Override
-    public void getBookStatus(String isbn) throws RemoteException {
+    public Boolean getBookStatus(String isbn) throws RemoteException {
         Book book = books.get(isbn);
+        Boolean status = true;
         if (book != null) {
-            System.out.println("Status of the book: " + book.getStatusBook());
+            status = book.getStatusBook();
         } else {
             System.out.println("Book not found.");
         }
+
+        return status;
     }
 }
